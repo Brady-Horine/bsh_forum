@@ -1,0 +1,53 @@
+---
+title: "bsh_workflow"
+format: html
+editor: visual
+---
+
+## Packages
+
+```{r}
+library(readr)
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(plotly)
+```
+
+## Data Import
+
+```{r}
+library(readr)
+claims <- read_csv("claims.csv")
+encounters <- read_csv("encounters.csv")
+```
+
+## Data Cleaning
+
+```{r}
+claims_clean <- claims %>%
+ filter(DEPARTMENTID >= 6L & DEPARTMENTID <= 20L)
+  
+
+```
+
+## Data Exploration
+
+```{r}
+ggplot(claims_clean) +
+  aes(x = DEPARTMENTID) +
+  geom_histogram(bins = 30L, fill = "#112446") +
+  theme_minimal()
+
+
+p <- ggplot(encounters, aes(x = TOTAL_CLAIM_COST/1000, col = ENCOUNTERCLASS)) + geom_boxplot() + labs(title = "Total Claim Cost by Class (Thousands)", col = "Class", x = "Total Claim Cost")
+
+ggplotly(p)
+
+```
+
+## Data Analysis
+
+```{r}
+
+```
